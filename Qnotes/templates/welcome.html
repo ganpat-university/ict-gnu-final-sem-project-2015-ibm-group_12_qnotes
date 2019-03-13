@@ -1,0 +1,81 @@
+<html>
+<head>
+  <style type="text/css">
+.socialaccount_ballot{
+height: 100%;
+align-content: center;
+}
+
+.socialaccount_providers{
+margin-top: 10%;
+width: 400px;
+align-content: center;
+}
+h1,p{
+  color: black;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+{% load static %}
+<link rel="stylesheet" href="{% static 'Qnotes/notes.css' %}"> 
+<script src="{% static 'Qnotes/notes.js' %}"></script>
+</head>
+
+<body>
+  <header>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>                        
+      </button>
+      {% load static %}
+      <img src="{% static 'Qnotes/logo2.jpg' %}" alt="" width="80" height="80" />
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+
+      <ul class="nav navbar-nav">
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li style="color: white;font-family: Comic Sans MS;"><h3>QNOTES</h3></li>
+      
+     </ul>
+
+    </div>
+    </div>
+  </nav>
+</header>
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block content %}
+<center>
+<h1 style="font-family: Comic Sans MS;">{% trans "WELCOME TO QUICK NOTES" %}</h1>
+</center>
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+<!--<p>{% blocktrans with site.name as site_name %}Please sign in with one
+of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>-->
+
+<center>
+<div class="socialaccount_ballot">
+
+  <a href="/accounts/login/">Go to Console</a>
+</div>
+</center>
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% endif %}
+{% endblock %}
+</body>
+</html>

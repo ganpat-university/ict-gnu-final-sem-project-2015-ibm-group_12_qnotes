@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  {% load static %}
+ <link rel="icon" type="image/ico" href="{% static 'Qnotes/logo2.jpg' %}" />
+  <title>Notes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'Qnotes/notes.css' %}"> 
+   <script src="{% static 'Qnotes/notes.js' %}"></script>
+    <script >
+      // Function to change heading background color
+  function changeNotesBg(color,nid){
+    document.getElementById("note").style.background = color;
+  }
+    </script>
+
+</head>
+{%if user.email%}
+{% include "base.html" %}
+<body class="bggrey">
+
+        <br>
+  </a>
+      {% csrf_token %}
+      <div class="container" style="padding-left:180px;" > 
+      <div class="row" >
+      {% for i in data %}
+      <div class="note col-md-3" style="background-color: {{i.note_colour}};">
+        <p>
+                           <a href="{% url 'fav_note' i.id %}">
+                        <button type="button" class="btn"  onclick="favouriteFunction()" data-toggle="tooltip" title="Favourites" style="margin-top:11px;background:transparent;">
+                          <i class="fa fa-star-o"></i>
+                        </button>
+                      </a>
+                      <a href="{% url 'delete_note' i.id %}">
+                        <button type="button" class="btn" onclick="deleteFunction()" data-toggle="tooltip" title="Delete" style="margin-top:11px;background:transparent;">
+                          <i class="material-icons" style="font-size:19px">delete</i>
+                        </button>
+                      </a>
+                      <a href="{% url 'edit_note' i.id %}">
+                        <button type="button" class="btn" data-toggle="tooltip" title="Edit" style="margin-top:11px;background:transparent;">
+                          <i class="fa fa-pencil" style="font-size:16px"></i>
+                        </button>
+                      </a>
+                      <a href="{% url 'archive_note' i.id %}">
+                        <button type="button" class="btn" onclick="archiveFunction()" data-toggle="tooltip" title="Archive" style="margin-top:11px;background:transparent;">
+                          <i class="material-icons" style="font-size:19px">archive</i>
+                        </button>
+                      </a>
+                      <div class="dropdown">
+                      <button type="submit" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background:transparent;">
+                       <i class="material-icons" style="font-size:21px">palette</i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a href="{% url 'colour_change1' i.id %}" ><button class="squares ffc"  ></button></a>
+                        
+                        <a href="{% url 'colour_change2' i.id %}" ><button class="squares cfc" ></button></a>
+                        
+                        <a href="{% url 'colour_change3' i.id %}" ><button class="squares ccf" ></button></a>
+                        
+                        <a href="{% url 'colour_change4' i.id %}" ><button class="squares fcf" ></button></a>
+
+                        <a href="{% url 'colour_change5' i.id %}" ><button class="squares cce"></button></a>
+
+                        <a href="{% url 'colour_change6' i.id %}" ><button class="squares bfb"  ></button></a>
+                      </div>
+                      </div>  
+                    
+            </p>
+            <hr>
+        <p>
+          <b> Title : </b> {{i.title}}
+        </p>
+        <hr>
+        <p>
+          <b> Content : </b> {{i.content}}
+        </p>
+      </div>
+      {%endfor%}
+    </div>
+    </div>
+   
+<script>  
+  
+  function favouriteFunction(){
+  alert("Your note has been added to Favourites");
+ }
+ function deleteFunction(){
+    alert("Note Deleted Successfully");
+  }
+  function archiveFunction(){
+    alert("Note has been Archived!!");
+  }
+</script>
+{% else %}<center>
+<h2 style="color: #1e90ff;font-family: Comic Sans MS;">You are not logged in yet. Please <a href="{% url 'index' %}" >Login Here</a> to access your Notes!</h2></center>
+{% endif %}
+</body>
+
+</html>
